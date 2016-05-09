@@ -41,7 +41,7 @@ while(cap.isOpened()):
         break
     src = cv2.imread("frame.png")
     
-    dst = cv2.Canny(src, 50, 200) # aplica o detector de bordas de Canny à imagem src
+    dst = cv2.Canny(src, 100, 200) # aplica o detector de bordas de Canny à imagem src
     
     cdst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR) # Converte a imagem para BGR para permitir desenho colorido
     # Our operations on the frame come here
@@ -49,7 +49,7 @@ while(cap.isOpened()):
     cv2.imshow('frame',frame)
     # Faz uma linha ligando o ponto inicial ao ponto final, com a cor vermelha (BGR)
     if True: # HoughLinesP
-        lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, 40, np.array([]), 50, 10)
+        lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, 40, np.array([]), 80, 10)
         a,b,c = lines.shape
         for i in range(a):
         
@@ -97,6 +97,6 @@ else:    # HoughLines
 
 cv2.imshow("source", src)
 cv2.imshow("detected lines", cdst)
-cv2.waitKey(0)
+cv2.waitKey(200)
 
 
