@@ -8,7 +8,9 @@ from matplotlib import pyplot as plt
 
 MIN_MATCH_COUNT = 10
 
-img1 = cv2.imread('hall_box_battery.jpg',0)# Imagem a procurar     
+img1 = cv2.imread('hall_box_battery1.png',0)# Imagem a procurar     
+#img1.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
+img1.create(height,width,CV_8UC4);
 video = cv2.VideoCapture("hall_box_battery.mp4")# 0 para webcam
  # Imagem do cenario - puxe do video para fazer isto
 while True:
@@ -18,9 +20,7 @@ while True:
             gray = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             #color = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY) 
             cv2.imwrite("img2.png", gray)
-            
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+
         
 
     # Initiate SIFT detector
@@ -70,3 +70,6 @@ while True:
         print "Not enough matches are found - %d/%d" % (len(good),MIN_MATCH_COUNT)
         matchesMask = None
     cv2.imshow("frame",img2)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+    
