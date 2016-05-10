@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 MIN_MATCH_COUNT = 10
 
-img1 = cv2.imread('foto_livro.jpg',0)# Imagem a procurar     
+img1 = cv2.imread('carteira_foto.jpg',0)# Imagem a procurar     
 #img1.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
 #img1.create(height,width,CV_8UC4);
 video = cv2.VideoCapture(0)# 0 para webcam
