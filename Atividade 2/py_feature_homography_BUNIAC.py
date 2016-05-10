@@ -8,27 +8,27 @@ from matplotlib import pyplot as plt
 
 MIN_MATCH_COUNT = 10
 
-img1 = cv2.imread('carteira_foto.jpg',0)# Imagem a procurar     
+img1 = cv2.imread('carteira_foto.jpg',0)# Imagem a procurar 
+
+    
+# Initiate SIFT detector
+sift = cv2.SIFT()
+
+# find the keypoints and descriptors with SIFT in each image
+kp1, des1 = sift.detectAndCompute(img1,None)    
 #img1.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
 #img1.create(height,width,CV_8UC4);
 video = cv2.VideoCapture(0)# 0 para webcam
+video.set(3,1024)
+video.set(4,768)
  # Imagem do cenario - puxe do video para fazer isto
 while True:
  
     ret, img2 = video.read()
     if (ret):
-            print("loop ret")
             gray = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             #color = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY) 
-            cv2.imwrite("img2.png", gray)
-
-        
-
-    # Initiate SIFT detector
-    sift = cv2.SIFT()
-
-    # find the keypoints and descriptors with SIFT in each image
-    kp1, des1 = sift.detectAndCompute(img1,None)
+            #cv2.imwrite("img2.png", gray)
     kp2, des2 = sift.detectAndCompute(img2,None)
     #kp2, des2 = cv2.SIFT().detectAndCompute(img2, None)
     FLANN_INDEX_KDTREE = 0
