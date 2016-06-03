@@ -4,6 +4,7 @@ from pylab import *
 from numpy import *
 from PIL import Image
 from matplotlib import pyplot as plt
+import time
 
 import cv2
 
@@ -23,7 +24,7 @@ search_params = dict(checks = 50)
 flann = cv2.FlannBasedMatcher(index_params, search_params)
 MIN_MATCH_COUNT = 10
 
-objetivo = (6,0,6)
+#objetivo = (1,-1,-3)
 
 def find_homography(kp1, des1, kp2, des2):
     """
@@ -188,7 +189,6 @@ img0 = cv2.cvtColor(img0bgr, cv2.COLOR_BGR2GRAY)
 
 
 cv_sift = cv2.SIFT()
-objetivo = (5,0,5)
 
 
 kp0, desc0 = cv_sift.detectAndCompute(img0, None)
@@ -262,39 +262,48 @@ while(True):
 
     # Extract camera, rotation and translation matrices
     Km, Rm, Tm = cam2.factor()
-    print("Camera")
-    print(Km)
+    #print("Camera")
+    #print(Km)
 
     #print("Rotation")
     #print(Rm)
     phi, theta, psi = mat2euler(Rm)
-    print("Rotation: {0:.2f} , {1:.2f}, {2:.2f}".format(math.degrees(phi), math.degrees(theta), math.degrees(psi)))
+   # print("Rotation: {0:.2f} , {1:.2f}, {2:.2f}".format(math.degrees(phi), math.degrees(theta), math.degrees(psi)))
 
 
-    z = Tm[0]
-    y = Tm[1]
-    x = Tm[2]
+    z = Tm[0] * 504
+    y = Tm[1] * 504
+    x = Tm[2] * 504
 
     print ("z", Tm[0])
     print ("y", Tm[1])
     print ("x", Tm[2])
-     
 
-    print("Translation")
-    print(Tm)
+    objetivo = (1,-1,-3)
+    time.sleep(1.5)
 
-    '''if (abs(z)> objetivo[0] and abs(objetivo[0]-(z)<0) ):
-        informacao = ("Ande para trás")
+    if Tm[0] - objetivo[0] > 1:
+        print("Vá para frente")
 
-    elif ()
-'''
+    elif Tm[0] - objetivo[0] < 0 and Tm[0] - objetivo[0] < -1:
+        print("Vá para trás")
+
+    elif Tm[1] - objetivo[1] > 1:
+        print("Vá para direita")
+
+    elif Tm[1] - objetivo[1] < 0 and Tm[1] - objetivo[1] < -0.5:
+        print("Vá para esquerda")
+
+    elif Tm[2] - objetivo[2] > 1:
+        print("Vá para cima")
+
+    elif Tm[2] - objetivo[2] < 0 and Tm[2] - objetivo[2] < -1:
+        print("Vá para baixo")
+
+    else:
+        print("VOCÊ CHEGOU AO SEU DESTINO")
 
     cv2.imshow('Aperte Q', img1bgr)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
-
-
-
-
-cv2.destroyWindow('Aperte Q')
+    
