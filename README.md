@@ -1,2 +1,0 @@
-# OpenCV
-Projects using OpenCV
