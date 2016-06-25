@@ -17,13 +17,11 @@ class Kalman2D(object):
         (como posição, velocidade e aceleração) em qualquer um dos modelos de transição ou covariâncias.        '''  
         
         self.kalman = cv.CreateKalman(4, 2, 0) 
-        #print(self.kalman)
         self.kalman_state = cv.CreateMat(4, 1, cv.CV_32FC1)  #convertendo a matriz(32 bit floating point signed depth in one channel )
-        #print(self.kalman_state)
         self.kalman_process_noise = cv.CreateMat(4, 1, cv.CV_32FC1)  #//
-        #print(self.kalman_process_noise)
+
         self.kalman_measurement = cv.CreateMat(2, 1, cv.CV_32FC1)  #//
-        #print(self.kalman_measurement) 
+        print(self.kalman_measurement) 
         for j in range(4): #(j(0:3)) 
             for k in range(4):  
                 self.kalman.transition_matrix[j,k] = 0  
